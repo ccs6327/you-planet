@@ -26,7 +26,19 @@ def session(sessionid, userid):
 @app.route('/session/generate/<userid1>/<userid2>')
 def getSessionUrl(userid1, userid2):
   sessionid = generateSessionForUsers(userid1, userid2)
-  return 'https://192.168.0.52:5000/session/' + sessionid + '/' + userid1
+  return 'https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid1
+
+@app.route('/session/join/<sessionid>/<userid>')
+def joinSession(sessionid, userid):
+  return sessionJoin(sessionid, userid)
+
+@app.route('/session/leave/<sessionid>/<userid>')
+def leaveSession(sessionid, userid):
+  return sessionLeave(sessionid, userid)
+
+@app.route('/session/anotherEndReady/<sessionid>/<userid>')
+def anotherEndUserReady(sessionid, userid):
+  return sessionAnotherEndReady(sessionid, userid)
 
 @app.route('/prescreening/<filename>')
 def prescreening(filename):
