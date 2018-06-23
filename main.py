@@ -45,18 +45,18 @@ def prescreening(filename):
   # cleanfile = filename.replace(".wav", "_clean.wav")
   # noisefile = filename.replace(".wav", "_noise.wav")
   ## If file exists, delete it ##
-  if os.path.isfile(cleanfile):
-    os.remove(cleanfile)
+  # if os.path.isfile(cleanfile):
+  #   os.remove(cleanfile)
   ## If file exists, delete it ##
-  if os.path.isfile(noisefile):
-    os.remove(noisefile)  
+  # if os.path.isfile(noisefile):
+  #   os.remove(noisefile)  
   # subprocess.Popen("ffmpeg -i " + filename + " -vn -ss 00:00:00 -t 00:00:01 " + noisefile, stdout=subprocess.PIPE).stdout.read()
   # subprocess.Popen("sox " + noisefile + " -n noiseprof noise.prof", stdout=subprocess.PIPE).stdout.read()
   # subprocess.Popen("sox " + filename + " " + cleanfile + " noisered noise.prof 0.21", stdout=subprocess.PIPE).stdout.read()
   # subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + cleanfile + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + cleanfile, stdout=subprocess.PIPE).stdout.read()
   # output = subprocess.Popen("python model.py " + cleanfile + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
   
-  subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
+  # print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
   output = subprocess.Popen("python model.py " + filename + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
   
   return output
