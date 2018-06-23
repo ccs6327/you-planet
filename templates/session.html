@@ -1,22 +1,40 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <head>
   <title>You Planet</title>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdn.pubnub.com/pubnub.min.js"></script>
   <script src="https://kevingleason.me/SimpleRTC/js/webrtc.js"></script>
   <style>
-    #vid-box > video {
+    #vid-box>video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    #start-session {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 212px;
+      height: 54px;
+      margin-top: -27px;
+      margin-left: -106px;
     }
   </style>
 </head>
 
 <body>
   <div id="vid-box"></div>
-  <button id="start-session">Start the session</button>
+  <button class="waves-effect waves-light btn-large" id="start-session">Start the session</button>
   <script>
     var video_out = document.getElementById("vid-box");
     var startSessionButton = document.getElementById("start-session");
@@ -25,14 +43,14 @@
       publish_key: 'pub-c-ce24c8ee-da68-48eb-a915-15631f1602e1',
       subscribe_key: 'sub-c-d0ecec70-76b1-11e8-a4a6-464114960942',
     });
-    phone.ready(function () {});
+    phone.ready(function () { });
     phone.receive(function (session) {
-      startSessionButton.hidden = true
-      session.connected(function (session) { console.log(session.video);video_out.appendChild(session.video); });
+      startSessionButton.style.visibility = "hidden"
+      session.connected(function (session) { console.log(session.video); video_out.appendChild(session.video); });
       session.ended(function (session) { video_out.innerHTML = ''; });
     });
-    startSessionButton.onclick = function(e) {
-      startSessionButton.hidden = true
+    startSessionButton.onclick = function (e) {
+      startSessionButton.style.visibility = "hidden"
       phone.dial("{{ another_end_userid }}");
     }
   </script>
