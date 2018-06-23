@@ -36,7 +36,7 @@ def main():
 	
 	cls = joblib.load('model.pkl') 
 	
-	Y = cls.predict(X)
+	Y = cls.predict([X])
 	print MULTI[Y[0]]
 	
 	
