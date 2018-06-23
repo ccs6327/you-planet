@@ -11,6 +11,8 @@ import cPickle
 import threading
 import shutil
 import ntpath
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import audioFeatureExtraction as aF
 import audioTrainTest as aT
@@ -20,7 +22,6 @@ import audioBasicIO
 import utilities as uT
 import scipy.io.wavfile as wavfile
 import matplotlib.patches
-
 
 def dirMp3toWavWrapper(directory, samplerate, channels):
     if not os.path.isdir(directory):
