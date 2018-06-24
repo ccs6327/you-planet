@@ -8,19 +8,19 @@ class Session:
     return Session.session
 
   def generateSessionForUsers(self, userid1, userid2):
-    sessionid = str(uuid.uuid4())
+    sessionid = str(uuid.uuid4()).replace('-', '')
     Session.session[sessionid] = [userid1, userid2]
-    print(Session.session)
     return sessionid
 
   def verifySessionHasUser(self, sessionid, userid):
+    print(sessionid, userid, Session.session, Session.session[sessionid])
     if sessionid in Session.session and userid in Session.session[sessionid]:
       user_index = Session.session[sessionid].index(userid)
       return Session.session[sessionid][1] if user_index == 0 else Session.session[sessionid][0]
     return str(False)
 
   def sessionJoin(self, sessionid, userid):
-    if sessionid in session and userid in session[sessionid]:
+    if sessionid in Session.session and userid in Session.session[sessionid]:
       if sessionid in Session.joinedSession:
         Session.joinedSession[sessionid].append(userid)
       else:
@@ -30,7 +30,7 @@ class Session:
       return "Failed"
 
   def sessionLeave(self, sessionid, userid):
-    if sessionid in session and userid in session[sessionid]:
+    if sessionid in Session.session and userid in Session.session[sessionid]:
       if sessionid in Session.joinedSession and userid in Session.joinedSession[sessionid]:
         del Session.joinedSession[sessionid][Session.joinedSession[sessionid].index(userid)]
         return "Success"
