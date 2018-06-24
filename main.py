@@ -68,7 +68,7 @@ def prescreening(filename):
   
   print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
   output = subprocess.Popen("python model.py " + filename + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
-  
+  sys.stdout.flush()
   return output
 
 @app.route('/upload', methods=['GET', 'POST'])
