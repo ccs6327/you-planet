@@ -110,19 +110,22 @@ def averageFeatureInFile(csvFilename):
 
 			return featureRow
 
-def main():
-	if len(sys.argv) < 2:
-		print "please insert the feature filename"
-		return
-
-	filename = sys.argv[1]
+def predict(filename):
 	X = averageFeatureInFile(filename)
 	if not os.path.isfile(MODEL_NAME):
 		trainMultiClass()
 	cls = joblib.load(MODEL_NAME) 
 	
 	Y = cls.predict([X])
-	print MULTI[Y[0]]
+	return MULTI[Y[0]]
+
+def main():
+	if len(sys.argv) < 2:
+		print "please insert the feature filename"
+		return
+
+	filename = sys.argv[1]
+	print predict(filename)
 	
 	
 if __name__ == "__main__": 
