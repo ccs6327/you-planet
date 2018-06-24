@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for
 from session import Session
 from werkzeug.utils import secure_filename
 import subprocess
+import sys
 import os
 import json
+import logging
 
 UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = set(['wav'])
@@ -11,6 +13,8 @@ ALLOWED_EXTENSIONS = set(['wav'])
 app = Flask(__name__, static_url_path='')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_PATH'] = 100000
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 def allowed_file(filename):
   return '.' in filename and \
