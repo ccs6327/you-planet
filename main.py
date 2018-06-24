@@ -6,6 +6,8 @@ import sys
 import os
 import json
 import logging
+from audioAnalysis import featureExtractionFileWrapper
+from model import predict
 
 UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = set(['wav'])
@@ -73,12 +75,12 @@ def prescreening(filename):
   # subprocess.Popen("sox " + filename + " " + cleanfile + " noisered noise.prof 0.21", stdout=subprocess.PIPE).stdout.read()
   # subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + cleanfile + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + cleanfile, stdout=subprocess.PIPE).stdout.read()
   # output = subprocess.Popen("python model.py " + cleanfile + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
-  
-  print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
-  return filename + '1'
+  featureExtractionFileWrapper(filename, filename, 1.0, 1.0, 0.050, 0.050)
+  output = predict(filename + "_st.csv")
+  #print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
   #output = subprocess.Popen("python model.py " + filename + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
-  #sys.stdout.flush()
-  #return output
+  sys.stdout.flush()
+  return output
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
