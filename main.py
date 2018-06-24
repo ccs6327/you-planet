@@ -62,7 +62,7 @@ def prescreening(filename):
   # subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + cleanfile + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + cleanfile, stdout=subprocess.PIPE).stdout.read()
   # output = subprocess.Popen("python model.py " + cleanfile + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
   
-  # print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
+  print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
   output = subprocess.Popen("python model.py " + filename + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
   
   return output
@@ -71,7 +71,7 @@ def prescreening(filename):
 def upload():
     if request.method == 'POST':
         # check if the post request has the file part
-        print(request.files)
+        # print(request.files)
         if 'file' not in request.files:
             print 'No file part'
             return redirect(request.url)
