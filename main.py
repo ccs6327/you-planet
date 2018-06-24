@@ -62,6 +62,10 @@ def leaveSession(sessionid, userid):
 def anotherEndUserReady(sessionid, userid):
   return Session().sessionAnotherEndReady(sessionid, userid)  
 
+@app.route('/session/clear')
+def clearSession():
+  return Session().sessionClear() 
+
 @app.route('/sessionTherapist/<userid>')
 def sessionForTherapist(userid):
   sessionid = Session().sessionTherapist(userid)

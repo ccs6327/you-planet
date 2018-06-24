@@ -55,3 +55,8 @@ class Session:
       if userid in Session.session[s]:
         return s
     return ''
+
+  def sessionClear(self):
+    Session.session = {}
+    Session.joinedSession = {}
+    return "Success"
