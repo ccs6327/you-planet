@@ -40,7 +40,11 @@ def session(sessionid, userid):
 def getSessionUrl(userid1, userid2):
   sessionid = Session().generateSessionForUsers(userid1, userid2)
   # return 'https://localhost:5000/session/' + sessionid + '/' + userid1
-  return 'https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid1
+  return json.dumps({
+      "messages": [
+        {"text": 'https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid1},
+      ]
+    })
 
 @app.route('/session/join/<sessionid>/<userid>')
 def joinSession(sessionid, userid):
