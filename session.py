@@ -49,3 +49,9 @@ class Session:
       return "Ready" if sessionid in Session.joinedSession and another_end_user in Session.joinedSession[sessionid] else "Not Ready"
     else:
       return "Not Ready"
+
+  def sessionTherapist(self, userid):
+    for s in Session.session:
+      if user in Session.session[s]:
+        return s
+    return ''

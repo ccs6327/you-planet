@@ -60,6 +60,11 @@ def leaveSession(sessionid, userid):
 def anotherEndUserReady(sessionid, userid):
   return Session().sessionAnotherEndReady(sessionid, userid)  
 
+@app.route('/sessionTherapist/<userid>')
+def sessionTherapist():
+  sessionid = Session().sessionTherapist(userid)
+  return redirect('https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid)
+
 @app.route('/prescreening/<filename>')
 def prescreening(filename):
   # cleanfile = filename.replace(".wav", "_clean.wav")
