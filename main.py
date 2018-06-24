@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
-from session import verifySessionHasUser, generateSessionForUsers
+from session import verifySessionHasUser, generateSessionForUsers, sessionJoin, sessionLeave, sessionAnotherEndReady, sessionDebug
 from werkzeug.utils import secure_filename
 import subprocess
 import os
+import json
 
 UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = set(['wav'])
@@ -15,6 +16,10 @@ def allowed_file(filename):
   return '.' in filename and \
           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/getSession')
+def getSessionDebug():
+  return json.dumps(sessionDebug())
+
 @app.route('/session/<sessionid>/<userid>')
 def session(sessionid, userid):
   another_end_userid = verifySessionHasUser(sessionid, userid)
@@ -26,6 +31,7 @@ def session(sessionid, userid):
 @app.route('/session/generate/<userid1>/<userid2>')
 def getSessionUrl(userid1, userid2):
   sessionid = generateSessionForUsers(userid1, userid2)
+  # return 'http://localhost:5000/session/' + sessionid + '/' + userid1
   return 'https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid1
 
 @app.route('/session/join/<sessionid>/<userid>')
@@ -94,5 +100,5 @@ def debug():
 if __name__ == "__main__":
   # context = ('static/server.crt', 'static/server.key')
   # app.run(host='0.0.0.0', ssl_context=context, debug=True)
-  app.run()
+  app.run(debug=True)
   

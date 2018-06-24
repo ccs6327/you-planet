@@ -3,6 +3,9 @@ import uuid
 session = {}
 joinedSession = {}
 
+def sessionDebug():
+  return session
+
 def generateSessionForUsers(userid1, userid2):
   sessionid = str(uuid.uuid4())
   session[sessionid] = [userid1, userid2]
