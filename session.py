@@ -52,6 +52,6 @@ class Session:
 
   def sessionTherapist(self, userid):
     for s in Session.session:
-      if user in Session.session[s]:
+      if userid in Session.session[s]:
         return s
     return ''
