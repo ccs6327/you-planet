@@ -26,7 +26,7 @@ def session(sessionid, userid):
   if another_end_userid != str(False):
     return render_template('session.html', userid=userid, another_end_userid=another_end_userid)
   else:
-    return "Invalid session"
+    return another_end_userid
 
 @app.route('/session/generate/<userid1>/<userid2>')
 def getSessionUrl(userid1, userid2):
@@ -44,7 +44,7 @@ def leaveSession(sessionid, userid):
 
 @app.route('/session/anotherEndReady/<sessionid>/<userid>')
 def anotherEndUserReady(sessionid, userid):
-  return sessionAnotherEndReady(sessionid, userid)
+  return Session().sessionAnotherEndReady(sessionid, userid)
 
 @app.route('/prescreening/<filename>')
 def prescreening(filename):
