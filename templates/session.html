@@ -108,29 +108,27 @@
       }
     }
 
-    window.onclick = function(e) {
-      var interval = setInterval(checkAnotherEndReady, 1000);
-      var changLabelInterval = setInterval(changeWaitingLabel, 400);
-      checkAnotherEndReady();
-      var startSessionButton = document.getElementById("start-session");
-      var waitingAnotherEndLabel = document.getElementById("waiting-another-end");
+    var interval = setInterval(checkAnotherEndReady, 1000);
+    var changLabelInterval = setInterval(changeWaitingLabel, 400);
+    checkAnotherEndReady();
+    var startSessionButton = document.getElementById("start-session");
+    var waitingAnotherEndLabel = document.getElementById("waiting-another-end");
 
-      var video_out = document.getElementById("vid-box");
-      var phone = window.phone = PHONE({
-        number: "{{ userid }}",
-        publish_key: 'pub-c-ce24c8ee-da68-48eb-a915-15631f1602e1',
-        subscribe_key: 'sub-c-d0ecec70-76b1-11e8-a4a6-464114960942',
-      });
-      phone.ready(function () {
-        console.log('joined ' + httpGet("https://" + window.location.host + "/session/join" + window.location.pathname.substring('/session'.length)));
-      });
-      phone.receive(function (session) {
-        startSessionButton.style.visibility = "hidden"
-        waitingAnotherEndLabel.style.visibility = "hidden"
-        session.connected(function (session) { console.log(session.video); video_out.appendChild(session.video); });
-        session.ended(function (session) { video_out.innerHTML = ''; });
-      });
-    }
+    var video_out = document.getElementById("vid-box");
+    var phone = window.phone = PHONE({
+      number: "{{ userid }}",
+      publish_key: 'pub-c-ce24c8ee-da68-48eb-a915-15631f1602e1',
+      subscribe_key: 'sub-c-d0ecec70-76b1-11e8-a4a6-464114960942',
+    });
+    phone.ready(function () {
+      console.log('joined ' + httpGet("https://" + window.location.host + "/session/join" + window.location.pathname.substring('/session'.length)));
+    });
+    phone.receive(function (session) {
+      startSessionButton.style.visibility = "hidden"
+      waitingAnotherEndLabel.style.visibility = "hidden"
+      session.connected(function (session) { console.log(session.video); video_out.appendChild(session.video); });
+      session.ended(function (session) { video_out.innerHTML = ''; });
+    });
 
     startSessionButton.onclick = function (e) {
       startSessionButton.style.visibility = "hidden"
