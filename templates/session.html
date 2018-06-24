@@ -51,6 +51,12 @@
       width: 100%;
       margin-top: calc(100% - 250px);
     }
+
+    #debug {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   </style>
 </head>
 
@@ -59,6 +65,7 @@
   <div id="vid-box"></div>
   <div id="waiting-another-end">Waiting for therapist</div>
   <button class="waves-effect waves-light btn-large" id="start-session">Start the session</button>
+  <div id="debug"></div>
   <script>
     function httpGet(theUrl) {
       var xmlHttp = new XMLHttpRequest();
@@ -114,7 +121,7 @@
       subscribe_key: 'sub-c-d0ecec70-76b1-11e8-a4a6-464114960942',
     });
     phone.ready(function () {
-      console.log('joined', httpGet("https://" + window.location.host + "/session/join" + window.location.pathname.substring('/session'.length)));
+      document.getElementById('debug').innerText = ('joined ' + httpGet("https://" + window.location.host + "/session/join" + window.location.pathname.substring('/session'.length)));
     });
     phone.receive(function (session) {
       startSessionButton.style.visibility = "hidden"
