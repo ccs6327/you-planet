@@ -18,7 +18,7 @@ def allowed_file(filename):
 
 @app.route('/getSession')
 def getSessionDebug():
-  return json.dumps(sessionDebug())
+  return json.dumps(Session().sessionDebug())
 
 @app.route('/session/<sessionid>/<userid>')
 def session(sessionid, userid):
