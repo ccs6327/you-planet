@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from session import verifySessionHasUser, generateSessionForUsers, sessionJoin, sessionLeave, sessionAnotherEndReady, sessionDebug
+from session import Session
 from werkzeug.utils import secure_filename
 import subprocess
 import sys
@@ -22,33 +22,33 @@ def allowed_file(filename):
 
 @app.route('/getSession')
 def getSessionDebug():
-  return json.dumps(sessionDebug())
+  return json.dumps(Session().sessionDebug())
 
 @app.route('/session/<sessionid>/<userid>')
 def session(sessionid, userid):
-  another_end_userid = verifySessionHasUser(sessionid, userid)
+  another_end_userid = Session().verifySessionHasUser(sessionid, userid)
   if another_end_userid != str(False):
     return render_template('session.html', userid=userid, another_end_userid=another_end_userid)
   else:
-    return "Invalid session"
+    return another_end_userid
 
 @app.route('/session/generate/<userid1>/<userid2>')
 def getSessionUrl(userid1, userid2):
-  sessionid = generateSessionForUsers(userid1, userid2)
+  sessionid = Session().generateSessionForUsers(userid1, userid2)
   # return 'http://localhost:5000/session/' + sessionid + '/' + userid1
   return 'https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid1
 
 @app.route('/session/join/<sessionid>/<userid>')
 def joinSession(sessionid, userid):
-  return sessionJoin(sessionid, userid)
+  return Session().sessionJoin(sessionid, userid)
 
 @app.route('/session/leave/<sessionid>/<userid>')
 def leaveSession(sessionid, userid):
-  return sessionLeave(sessionid, userid)
+  return Session().sessionLeave(sessionid, userid)
 
 @app.route('/session/anotherEndReady/<sessionid>/<userid>')
 def anotherEndUserReady(sessionid, userid):
-  return sessionAnotherEndReady(sessionid, userid)
+  return Session().sessionAnotherEndReady(sessionid, userid)
 
 @app.route('/prescreening/<filename>')
 def prescreening(filename):
@@ -107,5 +107,5 @@ def debug():
 if __name__ == "__main__":
   # context = ('static/server.crt', 'static/server.key')
   # app.run(host='0.0.0.0', ssl_context=context, debug=True)
-  app.run(debug=True)
+  app.run()
   
