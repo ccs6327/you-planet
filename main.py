@@ -61,7 +61,7 @@ def anotherEndUserReady(sessionid, userid):
   return Session().sessionAnotherEndReady(sessionid, userid)  
 
 @app.route('/sessionTherapist/<userid>')
-def sessionTherapist():
+def sessionForTherapist():
   sessionid = Session().sessionTherapist(userid)
   return redirect('https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid)
 
