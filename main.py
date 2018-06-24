@@ -24,6 +24,10 @@ def allowed_file(filename):
 def getSessionDebug():
   return json.dumps(Session().sessionDebug())
 
+@app.route('/getJoinedSession')
+def getSessionJoinedDebug():
+  return json.dumps(Session().sessionJoinedDebug())
+
 @app.route('/session/<sessionid>/<userid>')
 def session(sessionid, userid):
   another_end_userid = Session().verifySessionHasUser(sessionid, userid)

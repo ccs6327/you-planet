@@ -7,6 +7,9 @@ class Session:
   def sessionDebug(self):
     return Session.session
 
+  def sessionJoinedDebug(self):
+    return Session.joinedSession
+
   def generateSessionForUsers(self, userid1, userid2):
     sessionid = str(uuid.uuid4()).replace('-', '')
     Session.session[sessionid] = [userid1, userid2]
