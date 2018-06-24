@@ -8,6 +8,8 @@ import json
 import logging
 from audioAnalysis import featureExtractionFileWrapper
 from model import predict
+import urllib
+import audiotranscode
 
 UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = set(['wav'])
@@ -61,11 +63,19 @@ def anotherEndUserReady(sessionid, userid):
   return Session().sessionAnotherEndReady(sessionid, userid)  
 
 @app.route('/sessionTherapist/<userid>')
-def sessionForTherapist():
+def sessionForTherapist(userid):
   sessionid = Session().sessionTherapist(userid)
   return redirect('https://you-planet.herokuapp.com/session/' + sessionid + '/' + userid)
 
-@app.route('/prescreening/<filename>')
+@app.route('/screen/<url>', methods=['GET', 'POST'])
+def screen(url):
+  AAC_FILE = "a.aac"
+  if os.path.isfile(AAC_FILE):
+    os.remove(AAC_FILE)
+  urllib.urlretrieve (url, AAC_FILE)
+  return ''
+
+@app.route('/prescreening/<filename>', methods=['GET', 'POST'])
 def prescreening(filename):
   # cleanfile = filename.replace(".wav", "_clean.wav")
   # noisefile = filename.replace(".wav", "_noise.wav")
