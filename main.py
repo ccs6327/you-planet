@@ -52,7 +52,7 @@ def leaveSession(sessionid, userid):
 
 @app.route('/session/anotherEndReady/<sessionid>/<userid>')
 def anotherEndUserReady(sessionid, userid):
-  return Session().sessionAnotherEndReady(sessionid, userid)
+  return Session().sessionAnotherEndReady(sessionid, userid)  
 
 @app.route('/prescreening/<filename>')
 def prescreening(filename):
@@ -69,11 +69,11 @@ def prescreening(filename):
   # subprocess.Popen("sox " + filename + " " + cleanfile + " noisered noise.prof 0.21", stdout=subprocess.PIPE).stdout.read()
   # subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + cleanfile + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + cleanfile, stdout=subprocess.PIPE).stdout.read()
   # output = subprocess.Popen("python model.py " + cleanfile + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
-  return outout
-  print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
-  output = subprocess.Popen("python model.py " + filename + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
-  sys.stdout.flush()
-  return output
+  return filename
+  #print subprocess.Popen("python audioAnalysis.py featureExtractionFile -i " + filename + " -mw 1.0 -ms 1.0 -sw 0.050 -ss 0.050 -o " + filename, stdout=subprocess.PIPE).stdout.read()
+  #output = subprocess.Popen("python model.py " + filename + "_st.csv", stdout=subprocess.PIPE).stdout.read()  
+  #sys.stdout.flush()
+  #return output
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
